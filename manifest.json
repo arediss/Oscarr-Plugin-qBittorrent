@@ -1,17 +1,18 @@
 {
   "id": "qbittorrent-manager",
   "name": "qBittorrent Manager",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "apiVersion": "v1",
   "description": "View qBittorrent torrents queue and transfer stats inside Oscarr.",
   "author": "Arediss",
   "entry": "dist/index.js",
   "frontend": "frontend/index.tsx",
-  "services": ["qbittorrent", "sonarr", "radarr"],
-  "capabilities": ["settings:plugin", "permissions"],
+  "services": ["qbittorrent", "sonarr"],
+  "capabilities": ["settings:plugin", "permissions", "users:read"],
   "capabilityReasons": {
     "settings:plugin": "Stores plugin settings (refresh interval).",
-    "permissions": "Declares an admin permission for download-client visibility."
+    "permissions": "Declares an admin permission for download-client visibility.",
+    "users:read": "Test stub — resolve usernames in download history. Will be reverted in 0.1.3."
   },
   "settings": [
     {
@@ -46,6 +47,6 @@
   },
   "engines": {
     "oscarr": ">=0.7.0 <1.0.0",
-    "testedAgainst": ["0.7.7"]
+    "testedAgainst": ["0.7.7", "0.7.8"]
   }
 }
