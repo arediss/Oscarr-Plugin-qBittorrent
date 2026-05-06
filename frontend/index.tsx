@@ -190,6 +190,17 @@ export default function QbittorrentManager() {
     };
   }, [torrents]);
 
+  // Full-area centered loader on first load — the plugin header would be misleading
+  // before we know whether the qBittorrent instance is reachable at all.
+  if (loading && !torrents) {
+    return (
+      <div className="flex items-center justify-center gap-2 text-ndp-text-dim text-sm py-24">
+        <RefreshCw className="w-4 h-4 animate-spin" />
+        Loading qBittorrent…
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-3 flex-wrap">
@@ -205,13 +216,6 @@ export default function QbittorrentManager() {
           Add torrent
         </button>
       </div>
-
-      {loading && !torrents && (
-        <div className="card text-center text-ndp-text-dim text-sm flex items-center justify-center gap-2" style={{ padding: 48 }}>
-          <RefreshCw className="w-4 h-4 animate-spin" />
-          Loading qBittorrent…
-        </div>
-      )}
 
       {error && !torrents && (
         <div className="flex items-start gap-3 p-4 rounded-xl bg-ndp-danger/10 border border-ndp-danger/20 text-sm text-ndp-danger">
