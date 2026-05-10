@@ -96,6 +96,8 @@ export const STATE_LABEL: Record<string, { label: string; tone: string }> = {
   stalledUP: { label: 'Stalled (seed)', tone: 'text-ndp-text-dim' },
   pausedDL: { label: 'Paused', tone: 'text-ndp-text-dim' },
   pausedUP: { label: 'Paused', tone: 'text-ndp-text-dim' },
+  stoppedDL: { label: 'Paused', tone: 'text-ndp-text-dim' },
+  stoppedUP: { label: 'Paused', tone: 'text-ndp-text-dim' },
   queuedDL: { label: 'Queued', tone: 'text-ndp-text-dim' },
   queuedUP: { label: 'Queued', tone: 'text-ndp-text-dim' },
   checkingDL: { label: 'Checking', tone: 'text-amber-400' },

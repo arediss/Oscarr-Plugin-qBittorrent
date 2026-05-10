@@ -18,8 +18,7 @@ export interface PluginContext {
 
 export interface QbitConfig {
   url: string;
-  username: string;
-  password: string;
+  apiKey: string;
 }
 
 export interface QbitTorrent {

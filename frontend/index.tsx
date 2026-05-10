@@ -18,9 +18,9 @@ const BUILTIN_FILTERS: Array<{ id: Exclude<FilterId, 'imported'>; label: string;
   { id: 'all',         label: 'All',         match: () => true },
   { id: 'downloading', label: 'Downloading', match: (t) => t.state === 'downloading' || t.state === 'metaDL' },
   { id: 'seeding',     label: 'Seeding',     match: (t) => t.state === 'uploading' },
-  { id: 'paused',      label: 'Paused',      match: (t) => t.state.startsWith('paused') },
+  { id: 'paused',      label: 'Paused',      match: (t) => t.state.startsWith('paused') || t.state.startsWith('stopped') },
   { id: 'stalled',     label: 'Stalled',     match: (t) => t.state === 'stalledDL' || t.state === 'stalledUP' },
-  { id: 'other',       label: 'Other',       match: (t) => !['downloading','metaDL','uploading','stalledDL','stalledUP'].includes(t.state) && !t.state.startsWith('paused') },
+  { id: 'other',       label: 'Other',       match: (t) => !['downloading','metaDL','uploading','stalledDL','stalledUP'].includes(t.state) && !t.state.startsWith('paused') && !t.state.startsWith('stopped') },
 ];
 
 export default function QbittorrentManager() {
@@ -95,7 +95,7 @@ export default function QbittorrentManager() {
   const togglePause = async (t: Torrent) => {
     setBusy([t.hash], true);
     try {
-      const isPaused = t.state.startsWith('paused');
+      const isPaused = t.state.startsWith('paused') || t.state.startsWith('stopped');
       if (isPaused) await api.resume([t.hash]);
       else await api.pause([t.hash]);
       await refresh();
@@ -297,7 +297,7 @@ export default function QbittorrentManager() {
                     {sorted.map((t) => {
                       const stateInfo = STATE_LABEL[t.state] ?? { label: t.state, tone: 'text-ndp-text-dim' };
                       const pct = Math.round(t.progress * 100);
-                      const isPaused = t.state.startsWith('paused');
+                      const isPaused = t.state.startsWith('paused') || t.state.startsWith('stopped');
                       const busy = busyHashes.has(t.hash);
                       const importRec = imports[t.hash.toLowerCase()];
                       const isSelected = selected.has(t.hash);
